@@ -26,10 +26,10 @@ sam deploy
 
 ```bash
 # Create user
-curl -X POST https://xxxxxxxxx.execute-api.ap-southeast-2.amazonaws.com/Prod/user/ids \
+curl -X POST https://xxxxxxxxx.execute-api.ap-southeast-2.amazonaws.com/user/ids \
      -H "Content-Type: application/json" \
      -d '{"userId": "user123", "firstname": "John", "lastname": "Doe", "age": 30}'
 
 # List users
-curl https://xxxxxxxxx.execute-api.ap-southeast-2.amazonaws.com/Prod/user/ids
+curl https://xxxxxxxxx.execute-api.ap-southeast-2.amazonaws.com/user/ids
 ```

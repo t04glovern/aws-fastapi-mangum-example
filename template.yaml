@@ -12,14 +12,16 @@ Resources:
           DYNAMODB_TABLE: !Ref DynamoDBTable
       Runtime: python3.11
       Events:
-        ApiEvent:
-          Type: Api
+        Api:
+          Type: HttpApi
           Properties:
-            Path: /{proxy+}
-            Method: ANY
+            ApiId: !Ref Api
       Policies:
         - DynamoDBCrudPolicy:
             TableName: !Ref DynamoDBTable
+
+  Api:
+    Type: AWS::Serverless::HttpApi
 
   DynamoDBTable:
     Type: AWS::Serverless::SimpleTable
@@ -29,6 +31,7 @@ Resources:
         Type: String
 
 Outputs:
-  ApiURL:
-    Description: "API endpoint URL for Prod stage"
-    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/"
+  ApiUrl:
+    Description: URL of your API
+    Value:
+      Fn::Sub: 'https://${Api}.execute-api.${AWS::Region}.${AWS::URLSuffix}/'
