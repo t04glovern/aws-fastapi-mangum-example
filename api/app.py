@@ -64,12 +64,10 @@ class ErrorResponse(BaseModel):
 
 @app.post("/user/ids", response_model=User, status_code=201, responses={400: {"model": ErrorResponse}})
 async def create_user(user: User):
-    # Check if the user already exists
     existing = table.get_item(Key={'userId': user.userId})
     if 'Item' in existing:
         raise HTTPException(status_code=400, detail="User already exists. Use PUT to update.")
 
-    # Create new user record
     user_dict = user.model_dump()
     table.put_item(Item=user_dict)
     return user_dict
@@ -78,7 +76,7 @@ async def create_user(user: User):
 async def list_users():
     response = table.scan()
     items = response.get('Items', [])
-    # Convert each item to User model
+
     users = [User(**item) for item in items]
     return users
 

@@ -12,6 +12,18 @@ pip install -r requirements.txt
 LOCAL_DEV=True python app.py
 ```
 
+### Testing
+
+```bash
+# Create user
+curl -X POST http://0.0.0.0:8080/user/ids \
+     -H "Content-Type: application/json" \
+     -d '{"userId": "user123", "firstname": "John", "lastname": "Doe", "age": 30}'
+
+# List users
+curl http://0.0.0.0:8080/user/ids
+```
+
 ## Deploy
 
 ```bash
@@ -22,7 +34,7 @@ sam validate
 sam deploy
 ```
 
-## Testing
+### Testing
 
 ```bash
 # Create user
